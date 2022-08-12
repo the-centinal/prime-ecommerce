@@ -18,10 +18,10 @@ function Product() {
             // return () => {
             //     componentMounted = false
             // }
-        }
+        };
         getProducts();
 
-    }, []);
+    }, [id]);
 
 
     const Loading = () => {
