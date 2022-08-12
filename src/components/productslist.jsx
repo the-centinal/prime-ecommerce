@@ -18,9 +18,9 @@ function Productslist() {
                 setLoading(false)
                 console.log(filter);
             }
-            return () => {
-                componentMounted = false
-            }
+            // return () => {
+            //     componentMounted = false
+            // }
         }
         getProducts();
     }, [])
