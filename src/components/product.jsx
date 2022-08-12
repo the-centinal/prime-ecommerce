@@ -15,9 +15,9 @@ function Product() {
             const response = await fetch(`https://fakestoreapi.com/products/${id}`);
             setProduct(await response.json());
             setLoading(false)
-            return () => {
-                componentMounted = false
-            }
+            // return () => {
+            //     componentMounted = false
+            // }
         }
         getProducts();
 
