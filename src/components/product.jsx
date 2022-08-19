@@ -1,28 +1,27 @@
+
 import React, { useState, useEffect } from 'react'
 import Skeleton from 'react-loading-skeleton';
 import { useParams } from 'react-router'
-// import { FaStar } from 'react-icons/fa' 
+import { FaStar } from 'react-icons/fa' 
 
+function Product() {
 
-function Orders() {
-
-    const { user_id } = useParams();
+    const { id } = useParams();
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         const getProducts = async () => {
             setLoading(true);
-            const response = await fetch("https://assessment.api.vweb.app/orders");
+            const response = await fetch(`https://fakestoreapi.com/products/${id}`);
             setProduct(await response.json());
             setLoading(false)
-            console.log(product);
-            return () => {
-                componentMounted = false
-            }
+            // return () => {
+            //     componentMounted = false
+            // }
         };
         getProducts();
 
-    }, []);
+    }, [id]);
 
 
     const Loading = () => {
@@ -45,32 +44,25 @@ function Orders() {
     }
 
     const ShowProduct = () => {
-        
         return (
             <>
-                
-                <table className="table table-striped">
-                <thead>
-                <tr>
-                <th scope="col">Order ID</th>
-                <th scope="col">Product ID</th>
-                <th scope="col">Qunatity</th>
-                <th scope="col">Order Date</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                <th scope="row">{product.order_id}</th>
-                <td>{product.product_id}</td>
-                <td>{product.quantity}</td>
-                <td>{product.order_date}</td>
-                </tr>
-                
-                </tbody>
-                </table>
-                </>
-                )
-            
+                <div className="col-md-6">
+                    <img src={product.image} alt={product.title} height="400px" width="400px" />
+
+                </div>
+                <div className="col-md-6">
+                    <h4 className='text-uppercase text-black-50'>{product.category}</h4>
+                    <h1 className='display-5'>{product.title}</h1>
+                    <p className="lead fw-bolder">
+                    Rating {product.rating && product.rating.rate}
+                    <i><FaStar /></i>
+                    </p>
+                    <h3 className='display-6 fw-bold my-4'>${product.price}</h3>
+                    <p className="lead">{product.description}</p>
+                  
+                </div>
+            </>
+        )
     }
 
     return (
@@ -84,4 +76,4 @@ function Orders() {
     )
 }
 
-export default Orders
+export default Product
