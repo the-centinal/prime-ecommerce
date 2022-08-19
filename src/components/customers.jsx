@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Skeleton from 'react-loading-skeleton'
 import { NavLink } from 'react-router-dom'
 
-function Productslist() {
+function Customers() {
     const [data, setData] = useState([]);
     const [filter, setFilter] = useState(data);
     const [loading, setLoading] = useState(false);
@@ -11,7 +11,7 @@ function Productslist() {
     useEffect(() => {
         const getProducts = async () => {
             setLoading(true);
-            const response = await fetch("https://assessment.api.vweb.app/products");
+            const response = await fetch("https://assessment.api.vweb.app/users");
             if (componentMounted) {
                 setData(await response.clone().json());
                 setFilter(await response.json());
@@ -55,23 +55,24 @@ function Productslist() {
     // }
 
 
-    const ShowProducts = () => {
+    const ShowUsers = () => {
         return (
             <>
 
 
-                {filter.map((product) => {
+                {filter.map((users) => {
                     return (
                         <>
                             <div className="col-md-3 mb-4">
-                                <div className="card h-100 text-center p-4" key={product.id}>
+                                <div className="card h-100 text-center p-4" key={users.user_id}>
                                     {/*<img src={product.image} class="card-img-top" alt={product.name} height="250px" />*/}
                                     <div class="card-body">
-                                        <h5 className="card-title mb-0">{product.name.substring(0, 100)}</h5>
-                                        <p className="card-text lead fw-bold">$ {product.selling_price}</p>
-                                        <p className="card-text lead fw-bold">Stock Left - {product.stock} </p>
+                                        <h5 className="card-title mb-0">{users.name.substring(0, 100)}</h5>
+                                        <br />
+                                        {/*<p className="card-text lead fw-bold">$ {product.selling_price}</p>
+                    <p className="card-text lead fw-bold">Stock Left - {product.stock} </p>*/}
 
-                    {/*<NavLink to={`/products/${product.id}`} className="btn btn-outline-dark">Buy Now</NavLink>*/}
+                    <NavLink to={`/orders/${users.user_id}`} className="btn btn-outline-dark">VIEW ORDERS</NavLink>
                                     </div>
                                 </div>
                             </div>
@@ -97,11 +98,11 @@ function Productslist() {
                     </div>
                 </div>
                 <div className="row justify-content-center">
-                    {loading ? <Loading /> : <ShowProducts />}
+                    {loading ? <Loading /> : <ShowUsers />}
                 </div>
             </div>
         </div>
     )
 }
 
-export default Productslist
+export default Customers;
